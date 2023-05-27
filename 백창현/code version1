@@ -1,0 +1,52 @@
+import tkinter as tk
+from tkinter import messagebox
+
+questions = [
+    "당신은 소셜 미디어를 사용하지 않는 편인가요?",
+    "당신은 현대 음악에 대해 별로 좋아하지 않나요?",
+    "당신은 인스턴트 식품보다는 집에서 직접 요리하는 것을 선호하나요?",
+    "당신은 인공지능 보이스 애시스턴트를 거부하는 편인가요?",
+    "당신은 휴대폰 사용 시간을 제한하고 있나요?"
+]
+
+def show_result(score):
+    if score >= 3:
+        messagebox.showinfo("결과", "당신은 꼰대입니다!")
+    else:
+        messagebox.showinfo("결과", "당신은 꼰대가 아닙니다.")
+
+def calculate_score():
+    score = 0
+    for i in range(len(questions)):
+        if answer_vars[i].get() == 1:
+            score += 1
+
+    show_result(score)
+
+
+window = tk.Tk()
+window.title("꼰대 테스트")
+
+answer_vars = []
+for i, question in enumerate(questions):
+    question_label = tk.Label(window, text=question, font=("Arial", 12))
+    question_label.pack(pady=10)
+
+    answer_var = tk.IntVar()
+    answer_vars.append(answer_var)
+
+    frame = tk.Frame(window)
+    frame.pack()
+
+    yes_button = tk.Radiobutton(frame, text="예", variable=answer_var, value=1, font=("Arial", 12))
+    yes_button.pack(side=tk.LEFT, padx=10)
+
+    no_button = tk.Radiobutton(frame, text="아니오", variable=answer_var, value=0, font=("Arial", 12))
+    no_button.pack(side=tk.LEFT, padx=10)
+
+result_button = tk.Button(window, text="결과 보기", command=calculate_score, font=("Arial", 14), bg="#FFD700", fg="white")
+result_button.pack(pady=20)
+
+window.mainloop()
+
+
