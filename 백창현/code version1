@@ -94,12 +94,13 @@ class GrumpyTestApp:
 
         self.next_button.pack_forget()
 
-        if self.score >= 6:
+        if self.score >= 10:
             result_label = tk.Label(self.master, text=f"{self.name}님은 꼰대입니다!", font=("Arial", 16), bg="lightcyan")
             result_label.pack(pady=20)
         else:
             result_label = tk.Label(self.master, text=f"{self.name}님은 꼰대가 아닙니다.", font=("Arial", 16), bg="lightcyan")
             result_label.pack(pady=20)
+          
 
 if __name__ == "__main__":
     root = tk.Tk()
