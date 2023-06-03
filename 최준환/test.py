@@ -1,5 +1,6 @@
 import tkinter as tk
 import pandas as pd
+from tkinter import messagebox
 
 class SatooriTestApp:
     def __init__(self, root):
@@ -79,7 +80,7 @@ class SatooriTestApp:
         result_label = tk.Label(result_window, text="테스트가 종료되었습니다.")
         result_label.pack(pady=10)
 
-        score_label = tk.Label(result_window, text=f"점수: {self.score} / 12")
+        score_label = tk.Label(result_window, text=f"점수: {self.score} / 11")
         score_label.pack()
 
         if self.score >= 9:
@@ -90,12 +91,18 @@ class SatooriTestApp:
         message_label = tk.Label(result_window, text=message)
         message_label.pack(pady=10)
 
+        exit_button = tk.Button(result_window, text="종료", command=self.exit_program)
+        exit_button.pack(pady=10)
+
         self.save_results_to_file()
 
     def save_results_to_file(self):
         file_path = "test_results.xlsx"
         df = pd.DataFrame(self.results)
         df.to_excel(file_path, index=False)
+
+    def exit_program(self):
+        self.root.destroy()
 
 root = tk.Tk()
 app = SatooriTestApp(root)
