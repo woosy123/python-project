@@ -81,10 +81,10 @@ class SatooriTestApp:
         result_label = tk.Label(result_window, text="테스트가 종료되었습니다.")
         result_label.pack(pady=10)
 
-        score_label = tk.Label(result_window, text=f"점수: {self.score} / 11")
+        score_label = tk.Label(result_window, text=f"점수: {self.score} / 10")
         score_label.pack()
 
-        if self.score >= 9:
+        if self.score >= 8:
             message = "경상도 토박이시네요!"
         else:
             message = "경상도 분이 아니신가봐요!"
