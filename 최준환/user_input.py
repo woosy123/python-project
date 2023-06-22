@@ -13,16 +13,9 @@ def save_user_data():
         messagebox.showinfo("경고", "사용자 정보를 입력해주세요.")
         return
     
-    # 사용자 데이터를 DataFrame으로 생성
     user_data = pd.DataFrame({'Name': [name], 'Age': [age], 'Gender': [gender]})
-    
-    # DataFrame을 Excel 파일로 저장
     user_data.to_excel('user_data.xlsx', index=False)
-    
-    # 현재 창 종료
     root.destroy()
-    
-    # test.py 파일 실행
     subprocess.Popen(['python', 'test_select.py'])
 
 # 사용자 정보 입력 창 생성
@@ -50,7 +43,6 @@ radio_male.pack()
 radio_female = tk.Radiobutton(root, text="여성", variable=var_gender, value="여성")
 radio_female.pack()
 
-# 초기값으로 선택되지 않도록 설정
 var_gender.set(None)
 
 button_done = tk.Button(root, text="완료", command=save_user_data)
