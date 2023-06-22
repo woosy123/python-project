@@ -76,7 +76,7 @@ class SatooriTestApp:
 
         result_window = tk.Toplevel(self.root)
         result_window.title("결과")
-        result_window.geometry("300x200")
+        result_window.geometry("400x400")
 
         result_label = tk.Label(result_window, text="테스트가 종료되었습니다.")
         result_label.pack(pady=10)
@@ -84,33 +84,38 @@ class SatooriTestApp:
         score_label = tk.Label(result_window, text=f"점수: {self.score} / 10")
         score_label.pack()
 
-        if self.score >= 8:
-            message = "경상도 토박이시네요!"
+        try:
+            user_data = pd.read_excel('user_data.xlsx')
+            user_age = user_data['Age'][0]
+        except FileNotFoundError:
+            user_age = -1
+
+        if user_age < 25 and self.score >= 9:
+            message = f"{user_age}살 인데도 사투리를 잘 아시는 거보니 \n경상도에서 태어나셨군요!"
+        elif user_age >= 25 and self.score >= 9:
+            message = f"{user_age}살 이신 걸 보니 \n사투리를 잘 아실만 하시네요!"
         else:
             message = "경상도 분이 아니신가봐요!"
 
         message_label = tk.Label(result_window, text=message)
         message_label.pack(pady=10)
 
-        exit_button = tk.Button(result_window, text="종료", command=self.exit_program)
+        exit_button = tk.Button(result_window, text="종료", command=lambda : self.root.quit())
         exit_button.pack(side=tk.RIGHT, padx=5, pady=10)
 
-        button_more_tests = tk.Button(result_window, text="테스트 더 해보기", command=self.open_test_select)
-        button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10)
+        # button_more_tests = tk.Button(result_window, text="테스트 더 해보기", command=self.open_test_select)
+        # button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10)
 
         self.save_results_to_file()
 
-    def open_test_select(self):
-        subprocess.Popen(['python', 'test_select.py'])
-        self.root.destroy()
+    # def open_test_select(self):
+    #     subprocess.Popen(['python', 'test_select.py'])
+    #     self.root.destroy()
 
     def save_results_to_file(self):
         file_path = "test_results.xlsx"
         df = pd.DataFrame(self.results)
         df.to_excel(file_path, index=False)
-
-    def exit_program(self):
-        self.root.destroy()
 
 root = tk.Tk()
 app = SatooriTestApp(root)
