@@ -1,6 +1,7 @@
 import tkinter as tk
 import pandas as pd
 from tkinter import messagebox
+import subprocess
 
 class SatooriTestApp:
     def __init__(self, root):
@@ -92,9 +93,16 @@ class SatooriTestApp:
         message_label.pack(pady=10)
 
         exit_button = tk.Button(result_window, text="종료", command=self.exit_program)
-        exit_button.pack(pady=10)
+        exit_button.pack(side=tk.RIGHT, padx=5, pady=10)
+
+        button_more_tests = tk.Button(result_window, text="테스트 더 해보기", command=self.open_test_select)
+        button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10)
 
         self.save_results_to_file()
+
+    def open_test_select(self):
+        subprocess.Popen(['python', 'test_select.py'])
+        self.root.destroy()
 
     def save_results_to_file(self):
         file_path = "test_results.xlsx"
