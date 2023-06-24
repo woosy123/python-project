@@ -106,8 +106,8 @@ class KoreanQuiz:
 
         self.result_label.configure(text=result_text)
 
-        exit_button = tk.Button(root, text="종료", font=('Arial', 14), command = lambda : self.quit_quiz())
-        exit_button.pack(side=tk.BOTTOM, pady=10)
+        exit_button = tk.Button(self.root, text="종료", font=('Arial', 12), command = lambda : self.root.quit())
+        exit_button.pack(side=tk.RIGHT, pady=10,padx=5,anchor=tk.SE)
 
         # 결과를 파일에 저장합니다.
         self.save_results_to_file()
@@ -118,7 +118,7 @@ class KoreanQuiz:
         df.to_excel('quiz_results.xlsx', index=False)
 
 
-root = tk.Tk()
-root.geometry("400x400")  # 창의 크기 조정
-app = KoreanQuiz(root)
-root.mainloop()
+# root = tk.Tk()
+# root.geometry("400x400")  # 창의 크기 조정
+# app = KoreanQuiz(root)
+# root.mainloop()
