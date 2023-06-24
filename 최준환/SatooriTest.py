@@ -1,7 +1,6 @@
 import tkinter as tk
 import pandas as pd
 from tkinter import messagebox
-import subprocess
 
 class SatooriTestApp:
     def __init__(self, root):
