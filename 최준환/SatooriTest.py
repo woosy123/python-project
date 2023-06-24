@@ -6,9 +6,6 @@ import subprocess
 class SatooriTestApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("경상도 사투리 테스트")
-        self.root.geometry("400x400")
-        
         self.questions = []
         self.answers = []
         self.choices = []
@@ -18,7 +15,7 @@ class SatooriTestApp:
 
         self.load_file()
 
-        self.question_label = tk.Label(self.root, text="")
+        self.question_label = tk.Label(self.root, text="", font=("Arial", 11))
         self.question_label.pack()
 
         self.choice_buttons = []
@@ -72,17 +69,18 @@ class SatooriTestApp:
             self.show_final_score()
 
     def show_final_score(self):
-        self.root.withdraw()  # 이전 창 숨기기
+        self.root.title("결과")
+        self.question_label.destroy()
+        for i in range(4):
+                self.choice_buttons[i].destroy()
+        self.root.title("결과")
+        self.root.geometry("400x400")
 
-        result_window = tk.Toplevel(self.root)
-        result_window.title("결과")
-        result_window.geometry("400x400")
+        self.result_label = tk.Label(self.root, text="테스트가 종료되었습니다.")
+        self.result_label.pack(pady=10)
 
-        result_label = tk.Label(result_window, text="테스트가 종료되었습니다.")
-        result_label.pack(pady=10)
-
-        score_label = tk.Label(result_window, text=f"점수: {self.score} / 10")
-        score_label.pack()
+        self.score_label = tk.Label(self.root, text=f"점수: {self.score} / 10")
+        self.score_label.pack()
 
         try:
             user_data = pd.read_excel('user_data.xlsx')
@@ -97,26 +95,23 @@ class SatooriTestApp:
         else:
             message = "경상도 분이 아니신가봐요!"
 
-        message_label = tk.Label(result_window, text=message)
-        message_label.pack(pady=10)
+        self.message_label = tk.Label(self.root, text=message)
+        self.message_label.pack(pady=10)
 
-        exit_button = tk.Button(result_window, text="종료", command=lambda : self.root.quit())
-        exit_button.pack(side=tk.RIGHT, padx=5, pady=10)
-
-        # button_more_tests = tk.Button(result_window, text="테스트 더 해보기", command=self.open_test_select)
-        # button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10)
+        self.exit_button = tk.Button(self.root, text="종료", command=lambda : self.root.destroy())
+        self.exit_button.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.SE)
+        
+        self.button_more_tests = tk.Button(self.root, text="테스트 더 해보기", command=self.open_test_select)
+        self.button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.SE)
 
         self.save_results_to_file()
 
-    # def open_test_select(self):
-    #     subprocess.Popen(['python', 'test_select.py'])
-    #     self.root.destroy()
+    def open_test_select(self):
+        self.root.destroy()
+        from test_select import testselectApp
+        testselectApp(self.root)
 
     def save_results_to_file(self):
-        file_path = "test_results.xlsx"
+        file_path = "test1_results.xlsx"
         df = pd.DataFrame(self.results)
         df.to_excel(file_path, index=False)
-
-root = tk.Tk()
-app = SatooriTestApp(root)
-root.mainloop()
