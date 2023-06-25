@@ -116,6 +116,12 @@ class GrumpyTestApp:
         with open("Grumpytest_result.txt", "w") as file:
             file.write(result)
 
+    
+    def open_test_select(self):
+        self.master.destroy()
+        from test_select import testselectApp
+        testselectApp(self.master)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
