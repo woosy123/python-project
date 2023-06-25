@@ -106,11 +106,19 @@ class GrumpyTestApp:
 
         self.exit_button = tk.Button(self.master, text="종료", font=('Arial', 12), command = lambda : self.master.quit())
         self.exit_button.pack(side=tk.RIGHT, pady=10,padx=5,anchor=tk.SE)
+        
+        self.button_more_tests = tk.Button(self.root, text="테스트 더 해보기", command=self.open_test_select)
+        self.button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.SE)
 
         self.save_result_to_file()
+    def open_test_select(self):
+        self.root.destroy()
+        from test_select import testselectApp
+        testselectApp(self.root)
+        
     def save_result_to_file(self):
         result = f"Name: {self.name}\nScore: {self.score}"
-        with open("test_result.txt", "w") as file:
+        with open("Grumpytest_result.txt", "w") as file:
             file.write(result)
 
 
