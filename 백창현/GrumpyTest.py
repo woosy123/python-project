@@ -111,10 +111,10 @@ class GrumpyTestApp:
         self.button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.SE)
 
         self.save_result_to_file()
-    def open_test_select(self):
-        self.root.destroy()
-        from test_select import testselectApp
-        testselectApp(self.root)
+   # def open_test_select(self):
+       # self.root.destroy()
+      #  from test_select import testselectApp
+      #  testselectApp(self.root)
         
     def save_result_to_file(self):
         result = f"Name: {self.name}\nScore: {self.score}"
