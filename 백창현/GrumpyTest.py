@@ -106,8 +106,8 @@ class GrumpyTestApp:
 
         self.exit_button = tk.Button(self.master, text="종료", font=('Arial', 12), command = lambda : self.master.quit())
         self.exit_button.pack(side=tk.RIGHT, pady=10,padx=5,anchor=tk.SE)
-        
-
+        self.button_more_tests = tk.Button(self.master, text="테스트 더 해보기", command=self.open_test_select)
+        self.button_more_tests.pack(side=tk.RIGHT, padx=5, pady=10, anchor=tk.SE)
 
         self.save_result_to_file()
 
